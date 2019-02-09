@@ -2,8 +2,8 @@
 
 TV Series is a SPA (single page application) developed in React with these features:
 
-  View a list of TV Series;
-  Detail Selected Series.
+*  View a list of TV Series;
+*  Detail Selected Series.
 
 [Website]()
 
