@@ -1,58 +1,53 @@
 import React from 'react';
 import Card from './components/Card.js';
-// import PropTypes from "prop-types";
+import DetailsCard from './components/DetailsCard.js';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Button } from 'aphrodite-react';
 
-// function SerieDetails(props) {
-//   return (
-//     <li className={props.class}>
-//       {props.show.name}
-//     </li>
-//   )
-// }
-
-// SerieDetails.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   url: PropTypes.string.isRequired,
-//   class: PropTypes.string
-// }
-
-class SerieCard extends React.Component {
+export default class SerieCard extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {details: []}
+    this.state = {
+      details: []
+    };
     this.getSerieDetails = this.getSerieDetails.bind(this);
   }
 
   getSerieDetails(event) {
     const BASE_URL = 'http://api.tvmaze.com';
 
-    fetch(`${BASE_URL}/search/shows?q=girls`)
+    fetch(`${BASE_URL}/shows/${this.props.show.id}`)
       .then(res => res.json())
-      .then(data => {
-        this.setState({ details: data});
-        // if (data.length === 0) {
-        //   this.setState({ details: [{name: 'Nao encontrado'}]});
-        // } else {
-        //   this.setState({ details: data});
-        // }
-      });
-    }
+      .then(data => this.setState({ details: data}));
+    };
 
   render() {
+    console.log(this.state.details)
     return (
       <Card key={ this.props.show.id }>
         <h2>{ this.props.show.name }</h2>
         <h3>{ this.props.show.genres + ' ' }</h3>
-        <img src={ this.props.show.image.medium } alt='Poster da Série'/>
+        <div>
+          <img src={ this.props.show.image.medium } alt="Poster da Série" />
+        </div>
+        <Router>
+          <div>
+            <Link to="/details"><Button onClick={this.getSerieDetails}>Detalhes</Button></Link>
+            <Route path="/details" render={ () =>
+              <div>
+                <div>
+                  <img src={ this.props.show.image.medium } alt="Poster da Série" />
+                </div>
+                <h2>{ this.props.show.name }</h2>
+                <h3>{ this.props.show.genres + ' ' }</h3>
+                <p>{ this.props.show.summary }</p>
+                <h4>{ this.props.show.premiered }</h4>
+              </div>
+            } />
+          </div>
+        </Router>
       </Card>
     );
   }
 }
-//   SerieCard.propTypes = {
-//     name: PropTypes.string.isRequired,
-//     genre: PropTypes.string.isRequired,
-//     id: PropTypes.number.isRequired
-// }
-
-export default SerieCard;

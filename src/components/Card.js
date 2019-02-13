@@ -1,8 +1,8 @@
 import React from 'react';
 import '../Card.css';
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
-function Card(props) {
+const Card = (props) => {
   return (
     <div className="my-card">
       { props.children }
@@ -10,8 +10,8 @@ function Card(props) {
   );
 }
 
-// Card.propTypes = {
-//   children: PropTypes.node.isRequired
-// };
+Card.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 export default Card;

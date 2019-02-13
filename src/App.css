@@ -18,3 +18,7 @@ html, body {
   width: auto;
   padding: 2%;
 }
+
+header {
+  height: 200px;
+}
